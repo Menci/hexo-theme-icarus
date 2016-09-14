@@ -1,10 +1,15 @@
 <% if (typeof(script) !== 'undefined' && script) { %>
     <script>
     var disqus_config = function () {
-        <% if (page.permalink) { %>
-            this.page.url = '<%= page.permalink %>';
+        <% if (page.permalink) {
+               function MenciRemoveIndexDotHtml(url) {
+                   if (url.substr(-10, 10) == 'index.html') return url.substr(0, url.length - 10);
+                   else return url;
+               }
+		%>
+            this.page.url = '<%= MenciRemoveIndexDotHtml(page.permalink) %>';
         <% } %>
-        this.page.identifier = '<%= page.disqusId || page.slug %>';
+        // this.page.identifier = '<%= page.disqusId || page.slug %>';
     };
     (function() { 
         var d = document, s = d.createElement('script');  
